@@ -5,6 +5,8 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: php-actions/composer@v6
       - run: composer install
       - run: vendor/bin/phpunit --coverage-clover=coverage.xml
       - run: bash <(curl -s https://codecov.io/bash)
