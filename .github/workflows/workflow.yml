@@ -1,0 +1,10 @@
+name: ${{ github.repository }}
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: composer install
+      - run: vendor/bin/phpunit --coverage-clover=coverage.xml
+      - run: bash <(curl -s https://codecov.io/bash)
