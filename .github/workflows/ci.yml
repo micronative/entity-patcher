@@ -1,7 +1,5 @@
 name: CI
-
 on: [push]
-
 jobs:
   composer:
     runs-on: ubuntu-latest
@@ -11,7 +9,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Cache Composer dependencies
         uses: actions/cache@v3
         with:
@@ -37,7 +34,7 @@ jobs:
     needs: [ composer ]
     strategy:
       matrix:
-        php: [ 8.1, 8.2 ]
+        php: [ 7.4, 8.0 ]
 
     outputs:
       coverage: ${{ steps.store-coverage.outputs.coverage_text }}
@@ -92,7 +89,7 @@ jobs:
     needs: [ composer ]
     strategy:
       matrix:
-        php: [ 8.1, 8.2 ]
+        php: [ 7.4, 8.0 ]
 
     steps:
       - uses: actions/download-artifact@v3
@@ -138,7 +135,7 @@ jobs:
     needs: [ composer ]
     strategy:
       matrix:
-        php: [ 8.1, 8.2 ]
+        php: [ 7.4, 8.0 ]
 
     steps:
       - uses: actions/download-artifact@v3
