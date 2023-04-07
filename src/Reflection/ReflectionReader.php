@@ -11,6 +11,16 @@ class ReflectionReader
 {
     /**
      * @param object $entity
+     * @return ReflectionProperty[]
+     */
+    public function getProperties(object $entity): array
+    {
+        $reflectionClass = (new Reflection())->reflect($entity);
+        return $reflectionClass->getProperties();
+    }
+
+    /**
+     * @param object $entity
      * @param string $propertyName
      * @return false|ReflectionProperty
      */
@@ -76,15 +86,5 @@ class ReflectionReader
         }
 
         return $property->getName();
-    }
-
-    /**
-     * @param object $entity
-     * @return ReflectionProperty[]
-     */
-    public function getProperties(object $entity): array
-    {
-        $reflectionClass = (new Reflection())->reflect($entity);
-        return $reflectionClass->getProperties();
     }
 }

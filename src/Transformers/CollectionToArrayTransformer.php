@@ -25,7 +25,7 @@ class CollectionToArrayTransformer
      * @param string $keyedBy
      * @return array|null
      */
-    public function transformCollection(?array $entities, string $keyedBy): ?array
+    public function transform(?array $entities, string $keyedBy): ?array
     {
         if (empty($entities)) {
             return null;

@@ -12,13 +12,13 @@ class Role
 {
     /**
      * @var int
-     * @ORM\Column(name="id")
+     * @ORM\Column(name="role_id")
      */
     private int $id;
 
     /**
      * @var string
-     * @ORM\Column(name="type")
+     * @ORM\Column(name="role_type")
      */
     private string $type;
 

@@ -12,13 +12,13 @@ class Profile
 {
     /**
      * @var int
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="profile_id", type="integer")
      */
     private int $id;
 
     /**
      * @var string
-     * @ORM\Column(name="description", type="string")
+     * @ORM\Column(name="profile_description", type="string")
      */
     private string $description;
 

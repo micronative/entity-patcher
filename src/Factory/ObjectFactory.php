@@ -12,7 +12,7 @@ class ObjectFactory
      * @return mixed
      * @throws ObjectFactoryException
      */
-    public function object(string $class)
+    public function create(string $class)
     {
         try {
             $object = new $class();

@@ -47,7 +47,7 @@ class ArrayToObjectTransformer
     public function transform(string $classname, array $data, string $keyedBy): object
     {
         $this->mappingTree[] = $classname;
-        $entity = $this->objectFactory->object($classname);
+        $entity = $this->objectFactory->create($classname);
         $this->patchObject($entity, $data, $keyedBy);
 
         return $entity;
@@ -141,6 +141,6 @@ class ArrayToObjectTransformer
     ): array
     {
         $transformer = new ArrayToCollectionTransformer($this->annotationReader, $this->reflectionReader);
-        return $transformer->transformCollection($property, $classname, $data, $keyedBy);
+        return $transformer->transform($property, $classname, $data, $keyedBy);
     }
 }

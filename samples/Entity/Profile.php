@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Entity;
+namespace Tests\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,13 +12,13 @@ class Profile
 {
     /**
      * @var int
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="profile_id", type="integer")
      */
     private int $id;
 
     /**
      * @var string
-     * @ORM\Column(name="description", type="string")
+     * @ORM\Column(name="profile_description", type="string")
      */
     private string $description;
 
@@ -26,7 +26,7 @@ class Profile
      * User has many Profiles
      * Profile belongs to one User
      * @var User
-     * @ORM\ManyToOne(targetEntity="Samples\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tests\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private User $user;

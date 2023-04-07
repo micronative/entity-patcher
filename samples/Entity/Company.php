@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Entity;
+namespace Tests\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,7 +25,7 @@ class Company
     /**
      * Company has many Users
      * @var User[]
-     * @ORM\OneToMany(targetEntity="Samples\Entity\User", mappedBy="company", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Tests\Entity\User", mappedBy="company", cascade={"persist"})
      */
     private array $users;
 

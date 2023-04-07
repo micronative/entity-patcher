@@ -12,25 +12,25 @@ class User
 {
     /**
      * @var int
-     * @ORM\Column(name="id")
+     * @ORM\Column(name="user_id")
      */
     private int $id;
 
     /**
      * @var string
-     * @ORM\Column(name="first_name")
+     * @ORM\Column(name="user_first_name")
      */
     private string $firstName;
 
     /**
      * @var string
-     * @ORM\Column(name="last_name")
+     * @ORM\Column(name="user_last_name")
      */
     private string $lastName;
 
     /**
      * @var string
-     * @ORM\Column(name="email")
+     * @ORM\Column(name="user_email")
      */
     private string $email;
 

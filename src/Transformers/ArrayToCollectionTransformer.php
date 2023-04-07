@@ -31,7 +31,7 @@ class ArrayToCollectionTransformer
      * @return array|null
      * @throws DataException|ObjectFactoryException
      */
-    public function transformCollection(
+    public function transform(
         ReflectionProperty $property,
         string             $classname,
         array              $data,

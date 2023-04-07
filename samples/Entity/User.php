@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Entity;
+namespace Tests\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,32 +12,32 @@ class User
 {
     /**
      * @var int
-     * @ORM\Column(name="id")
+     * @ORM\Column(name="user_id")
      */
     private int $id;
 
     /**
      * @var string
-     * @ORM\Column(name="first_name")
+     * @ORM\Column(name="user_first_name")
      */
     private string $firstName;
 
     /**
      * @var string
-     * @ORM\Column(name="last_name")
+     * @ORM\Column(name="user_last_name")
      */
     private string $lastName;
 
     /**
      * @var string
-     * @ORM\Column(name="email")
+     * @ORM\Column(name="user_email")
      */
     private string $email;
 
     /**
      * User belongs to a Company
      * @var Company
-     * @ORM\ManyToOne(targetEntity="Samples\Entity\Company", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="Tests\Entity\Company", inversedBy="users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected Company $company;
@@ -46,7 +46,7 @@ class User
      * User has many Roles
      * Role belongs to many Users
      * @var Role[]
-     * @ORM\ManyToMany(targetEntity="Samples\Entity\Role", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="Tests\Entity\Role", inversedBy="users")
      * @ORM\JoinTable(name="user_role")
      */
     private array $roles;
@@ -54,7 +54,7 @@ class User
     /**
      * User has many Profiles
      * @var Profile[]
-     * @ORM\OneToMany(targetEntity="Samples\Entity\Profile", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Tests\Entity\Profile", mappedBy="user", cascade={"persist"})
      */
     private array $profiles;
 

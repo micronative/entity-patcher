@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Entity;
+namespace Tests\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,13 +12,13 @@ class Role
 {
     /**
      * @var int
-     * @ORM\Column(name="id")
+     * @ORM\Column(name="role_id")
      */
     private int $id;
 
     /**
      * @var string
-     * @ORM\Column(name="type")
+     * @ORM\Column(name="role_type")
      */
     private string $type;
 
@@ -26,7 +26,7 @@ class Role
      * User has many Roles
      * Role belongs to many Users
      * @var User[]
-     * @ORM\ManyToMany(targetEntity="Samples\Entity\User", mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity="Tests\Entity\User", mappedBy="roles")
      */
     private array $users;
 
