@@ -41,23 +41,23 @@ jobs:
         run: tar -xvf /tmp/github-actions/build.tar ./
 
       - name: PHP Unit tests
-        uses: php-actions/phpunit@v2
+        uses: php-actions/phpunit@v3
         env:
           XDEBUG_MODE: cover
         with:
-          version: "9.0"
-          php_version: "7.4"
+          version: "9.5"
+          php_version: "8.0"
           php_extensions: xdebug
           configuration: phpunit.xml
           bootstrap: vendor/autoload.php
-          coverage_text: coverage/coverage.txt
-          coverage_clover: coverage/clover.xml
+          coverage_text: _coverage/coverage.txt
+          coverage_clover: _coverage/clover.xml
 
       - name: Store coverage data
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage
-          path: coverage
+          path: _coverage
 
   coverage:
     runs-on: ubuntu-latest
@@ -68,10 +68,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: code-coverage
-          path: coverage
+          path: _coverage
 
       - name: Output coverage
-        run: cat "coverage/coverage.txt"
+        run: cat "_coverage/coverage.txt"
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
