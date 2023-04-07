@@ -14,7 +14,7 @@ jobs:
       - name: Composer install
         uses: php-actions/composer@v6
         with:
-          php_version: "7.4"
+          php_version: "8.0"
 
       - name: Archive build
         run: mkdir /tmp/github-actions/ && tar -cvf /tmp/github-actions/build.tar ./
@@ -45,8 +45,8 @@ jobs:
         env:
           XDEBUG_MODE: cover
         with:
-          version: "9.0"
-          php_version: "7.4"
+          version: "9.3"
+          php_version: "8.0"
           php_extensions: xdebug
           configuration: phpunit.xml
           bootstrap: vendor/autoload.php
