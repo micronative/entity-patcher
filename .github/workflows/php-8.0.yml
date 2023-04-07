@@ -41,7 +41,7 @@ jobs:
         run: tar -xvf /tmp/github-actions/build.tar ./
 
       - name: PHP Unit tests
-        uses: php-actions/phpunit@v3
+        uses: php-actions/phpunit@v2
         env:
           XDEBUG_MODE: cover
         with:
@@ -50,8 +50,8 @@ jobs:
           php_extensions: xdebug
           configuration: phpunit.xml
           bootstrap: vendor/autoload.php
-          coverage_text: coverage/coverage.txt
-          coverage_clover: coverage/clover.xml
+          coverage-text: coverage/coverage.txt
+          coverage-clover: coverage/clover.xml
 
       - name: Store coverage data
         uses: actions/upload-artifact@v3
