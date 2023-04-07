@@ -1,6 +1,6 @@
 <?php
 
-namespace Micronative\EntityPatcher;
+namespace Micronative\EntityPatcher\Reflection;
 
 use Micronative\EntityPatcher\Exception\ReflectionException;
 use ReflectionClass;
