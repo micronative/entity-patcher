@@ -51,7 +51,7 @@ jobs:
           configuration: phpunit.xml
           bootstrap: vendor/autoload.php
           coverage_text: _coverage/coverage.txt
-          coverage_clover: _coverage/clover.xml
+          coverage_xml: _coverage/coverage.xml
 
       - name: Store coverage data
         uses: actions/upload-artifact@v3
