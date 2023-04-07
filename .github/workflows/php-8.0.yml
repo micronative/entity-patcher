@@ -45,13 +45,13 @@ jobs:
         env:
           XDEBUG_MODE: cover
         with:
-          version: "9.5"
-          php_version: "8.1"
+          version: "9.0"
+          php_version: "7.4"
           php_extensions: xdebug
           configuration: phpunit.xml
           bootstrap: vendor/autoload.php
-          coverage-text: coverage/coverage.txt
-          coverage-clover: coverage/clover.xml
+          coverage_text: coverage/coverage.txt
+          coverage_clover: coverage/clover.xml
 
       - name: Store coverage data
         uses: actions/upload-artifact@v3
