@@ -35,8 +35,8 @@ class ReflectionReader
      */
     public function getPropertyValue(object $entity, ReflectionProperty $property)
     {
+        $property->setAccessible(true);
         if ($property->isInitialized($entity)) {
-            $property->setAccessible(true);
             return $property->getValue($entity);
         }
 
