@@ -71,7 +71,8 @@ class PatcherTest extends TestCase
     {
         $this->expectException(DataException::class);
         $this->expectExceptionMessage('The property "users" is an array. Please check input data.');
-        $this->patcher->create(Company::class, $data);
+        $company = new Company();
+        $this->patcher->patch($company, $data);
     }
 
     /**
