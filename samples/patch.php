@@ -26,6 +26,16 @@ $patcher->patch(
                         'id' => '1100',
                         'type' => 'Manager'
                     ],
+                ],
+                'profiles' => [
+                    [
+                        'id' => '10000',
+                        'description' => 'Admin Profile'
+                    ],
+                    [
+                        'id' => '10001',
+                        'description' => 'Manager Profile'
+                    ],
                 ]
             ],
             [
@@ -41,6 +51,16 @@ $patcher->patch(
                     [
                         'id' => '1200',
                         'type' => 'Daughter'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'id' => '10003',
+                        'description' => 'Student Profile'
+                    ],
+                    [
+                        'id' => '10004',
+                        'description' => 'Daughter Profile'
                     ],
                 ]
             ]
