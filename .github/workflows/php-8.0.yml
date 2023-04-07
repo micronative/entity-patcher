@@ -28,9 +28,6 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     needs: [ composer ]
-    defaults:
-      run:
-        working-directory: ./coverage
     outputs:
       coverage: ${{ steps.store-coverage.outputs.coverage_text }}
 
@@ -49,7 +46,7 @@ jobs:
           XDEBUG_MODE: cover
         with:
           version: "9.5"
-          php_version: "8.0"
+          php_version: "8.1"
           php_extensions: xdebug
           configuration: phpunit.xml
           bootstrap: vendor/autoload.php
