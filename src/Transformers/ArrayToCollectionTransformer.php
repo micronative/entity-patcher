@@ -31,7 +31,12 @@ class ArrayToCollectionTransformer
      * @return array|null
      * @throws DataException|ObjectFactoryException
      */
-    public function transformCollection(ReflectionProperty $property, string $classname, array $data, string $keyedBy): ?array
+    public function transformCollection(
+        ReflectionProperty $property,
+        string             $classname,
+        array              $data,
+        string             $keyedBy
+    ): ?array
     {
         $array = [];
         foreach ($data as $key => $item) {

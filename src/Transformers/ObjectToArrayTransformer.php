@@ -35,7 +35,7 @@ class ObjectToArrayTransformer
      */
     public function transform(?object $entity, string $keyedBy): ?array
     {
-        if ($entity == null){
+        if ($entity == null) {
             return null;
         }
 
@@ -75,7 +75,12 @@ class ObjectToArrayTransformer
      * @param string $keyedBy
      * @return array|mixed|null
      */
-    private function getValue(object $entity, ReflectionProperty $property, MappingAttribute $annotation, string $keyedBy)
+    private function getValue(
+        object             $entity,
+        ReflectionProperty $property,
+        MappingAttribute   $annotation,
+        string             $keyedBy
+    )
     {
         switch (true) {
             case $annotation instanceof Column:
@@ -90,7 +95,10 @@ class ObjectToArrayTransformer
             case $annotation instanceof OneToMany:
             case $annotation instanceof ManyToMany:
                 if (!in_array($annotation->targetEntity, $this->mappingTree)) {
-                    return $this->transformCollection($this->reflectionReader->getPropertyValue($entity, $property), $keyedBy);
+                    return $this->transformCollection(
+                        $this->reflectionReader->getPropertyValue($entity, $property),
+                        $keyedBy
+                    );
                 }
 
                 return null;

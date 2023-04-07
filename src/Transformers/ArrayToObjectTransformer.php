@@ -75,7 +75,6 @@ class ArrayToObjectTransformer
      * @return void
      * @throws DataException
      * @throws ObjectFactoryException
-
      */
     private function patchObject(object $entity, array $data, string $keyedBy)
     {
@@ -134,7 +133,12 @@ class ArrayToObjectTransformer
      * @return array
      * @throws DataException|ObjectFactoryException
      */
-    private function transformCollection(ReflectionProperty $property, string $classname, array $data, string $keyedBy): array
+    private function transformCollection(
+        ReflectionProperty $property,
+        string             $classname,
+        array              $data,
+        string             $keyedBy
+    ): array
     {
         $transformer = new ArrayToCollectionTransformer($this->annotationReader, $this->reflectionReader);
         return $transformer->transformCollection($property, $classname, $data, $keyedBy);
