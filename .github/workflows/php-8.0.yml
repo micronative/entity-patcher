@@ -30,7 +30,7 @@ jobs:
     needs: [ composer ]
     defaults:
       run:
-        working-directory: ./
+        working-directory: ./coverage
     outputs:
       coverage: ${{ steps.store-coverage.outputs.coverage_text }}
 
