@@ -8,6 +8,7 @@
          convertWarningsToExceptions="true"
          beStrictAboutChangesToGlobalState="true"
          processIsolation="false"
+         pathCoverage="true"
          stopOnFailure="false">
     <testsuites>
         <testsuite name="tests">
