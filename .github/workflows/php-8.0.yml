@@ -28,8 +28,6 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     needs: [ composer ]
-    outputs:
-      coverage: ${{ steps.store-coverage.outputs.coverage_text }}
 
     steps:
       - uses: actions/download-artifact@v3
