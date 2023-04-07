@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Entity;
+namespace Tests\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,7 +26,7 @@ class Profile
      * User has many Profiles
      * Profile belongs to one User
      * @var User
-     * @ORM\ManyToOne(targetEntity="Samples\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tests\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private User $user;

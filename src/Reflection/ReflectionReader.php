@@ -4,7 +4,6 @@ namespace Micronative\EntityPatcher\Reflection;
 
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\MappingAttribute;
-use Micronative\EntityPatcher\Exception\ReflectionException;
 use Micronative\EntityPatcher\Patcher;
 use ReflectionProperty;
 
@@ -14,12 +13,10 @@ class ReflectionReader
      * @param object $entity
      * @param string $propertyName
      * @return false|ReflectionProperty
-     * @throws ReflectionException
      */
     public function getProperty(object $entity, string $propertyName)
     {
-        $reflectionClass = (new Reflection())->reflect($entity);
-        $properties = $reflectionClass->getProperties();
+        $properties = $this->getProperties($entity);
         foreach ($properties as $property) {
             if ($property->name == $propertyName) {
                 return $property;
@@ -84,11 +81,10 @@ class ReflectionReader
     /**
      * @param object $entity
      * @return ReflectionProperty[]
-     * @throws ReflectionException
      */
     public function getProperties(object $entity): array
     {
-        $reflectionClass = (new Reflection())->reflect(get_class($entity));
+        $reflectionClass = (new Reflection())->reflect($entity);
         return $reflectionClass->getProperties();
     }
 }

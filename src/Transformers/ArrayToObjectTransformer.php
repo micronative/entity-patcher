@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\OneToOne;
 use Micronative\EntityPatcher\Exception\DataException;
 use Micronative\EntityPatcher\Exception\ObjectFactoryException;
-use Micronative\EntityPatcher\Exception\ReflectionException;
 use Micronative\EntityPatcher\Factory\ObjectFactory;
 use Micronative\EntityPatcher\Reflection\ReflectionReader;
 use ReflectionProperty;
@@ -43,7 +42,7 @@ class ArrayToObjectTransformer
      * @param array $data
      * @param string $keyedBy
      * @return object
-     * @throws ReflectionException|ObjectFactoryException|DataException
+     * @throws ObjectFactoryException|DataException
      */
     public function transform(string $classname, array $data, string $keyedBy): object
     {
@@ -59,7 +58,7 @@ class ArrayToObjectTransformer
      * @param array $data
      * @param string $keyedBy
      * @return object
-     * @throws DataException|ObjectFactoryException|ReflectionException
+     * @throws DataException|ObjectFactoryException
      */
     public function patch(object $entity, array $data, string $keyedBy): object
     {
@@ -76,7 +75,7 @@ class ArrayToObjectTransformer
      * @return void
      * @throws DataException
      * @throws ObjectFactoryException
-     * @throws ReflectionException
+
      */
     private function patchObject(object $entity, array $data, string $keyedBy)
     {
@@ -103,7 +102,7 @@ class ArrayToObjectTransformer
      * @param string $keyedBy
      * @param mixed $data
      * @return mixed
-     * @throws DataException|ObjectFactoryException|ReflectionException
+     * @throws DataException|ObjectFactoryException|
      */
     private function getValue(ReflectionProperty $property, MappingAttribute $annotation, string $keyedBy, $data)
     {
@@ -133,19 +132,11 @@ class ArrayToObjectTransformer
      * @param array $data
      * @param string $keyedBy
      * @return array
-     * @throws DataException|ObjectFactoryException|ReflectionException
+     * @throws DataException|ObjectFactoryException
      */
     private function transformCollection(ReflectionProperty $property, string $classname, array $data, string $keyedBy): array
     {
-        $array = [];
-        foreach ($data as $key => $item) {
-            if (!is_array($item) || empty($item)) {
-                throw new DataException(sprintf(DataException::ERROR_INPUT_DATA, $property->getName()));
-            }
-            $transformer = new self();
-            $array[$key] = $transformer->transform($classname, $item, $keyedBy);
-        }
-
-        return $array;
+        $transformer = new ArrayToCollectionTransformer($this->annotationReader, $this->reflectionReader);
+        return $transformer->transformCollection($property, $classname, $data, $keyedBy);
     }
 }

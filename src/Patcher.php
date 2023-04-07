@@ -6,7 +6,6 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use Micronative\EntityPatcher\Exception\DataException;
 use Micronative\EntityPatcher\Exception\ObjectFactoryException;
 use Micronative\EntityPatcher\Exception\PatcherException;
-use Micronative\EntityPatcher\Exception\ReflectionException;
 use Micronative\EntityPatcher\Reflection\ReflectionReader;
 use Micronative\EntityPatcher\Transformers\ArrayToObjectTransformer;
 use Micronative\EntityPatcher\Transformers\ObjectToArrayTransformer;
@@ -31,14 +30,14 @@ class Patcher implements PatcherInterface
      * @param array $data
      * @param string $keyedBy data keyed by column name or property name
      * @return object
-     * @throws ObjectFactoryException|ReflectionException|DataException|PatcherException
+     * @throws ObjectFactoryException|DataException|PatcherException
      */
     public function create(string $classname, array $data, string $keyedBy = self::KEYED_BY_PROPERTY): object
     {
         try {
             $transformer = new ArrayToObjectTransformer($this->annotationReader, $this->reflectionReader);
             return $transformer->transform($classname, $data, $keyedBy);
-        } catch (ObjectFactoryException|ReflectionException|DataException $exception) {
+        } catch (ObjectFactoryException|DataException $exception) {
             throw $exception;
         } catch (\Throwable $throwable) {
             throw new PatcherException(PatcherException::ERROR_INPUT_DATA, 0, $throwable);
@@ -52,14 +51,14 @@ class Patcher implements PatcherInterface
      * @param array $data
      * @param string $keyedBy data keyed by column name or property name
      * @return void
-     * @throws ObjectFactoryException|ReflectionException|DataException|PatcherException
+     * @throws ObjectFactoryException|DataException|PatcherException
      */
     public function patch(object $entity, array $data, string $keyedBy = self::KEYED_BY_PROPERTY): void
     {
         try {
             $transformer = new ArrayToObjectTransformer($this->annotationReader, $this->reflectionReader);
             $transformer->patch($entity, $data, $keyedBy);
-        } catch (ObjectFactoryException|ReflectionException|DataException $exception) {
+        } catch (ObjectFactoryException|DataException $exception) {
             throw $exception;
         } catch (\Throwable $throwable) {
             throw new PatcherException(PatcherException::ERROR_INPUT_DATA, 0, $throwable);
@@ -72,15 +71,13 @@ class Patcher implements PatcherInterface
      * @param object $entity
      * @param string $keyedBy data keyed by column name or property name
      * @return array
-     * @throws ReflectionException|PatcherException
+     * @throws PatcherException
      */
     public function serialise(object $entity, string $keyedBy = self::KEYED_BY_PROPERTY): array
     {
         try {
             $transformer = new ObjectToArrayTransformer($this->annotationReader, $this->reflectionReader);
             return $transformer->transform($entity, $keyedBy);
-        } catch (ReflectionException $exception) {
-            throw $exception;
         } catch (\Throwable $throwable) {
             throw new PatcherException(PatcherException::ERROR_INPUT_DATA, 0, $throwable);
         }
@@ -93,7 +90,7 @@ class Patcher implements PatcherInterface
      * @param array $entities
      * @param string $keyedBy data keyed by column name or property name
      * @return array
-     * @throws ReflectionException|PatcherException
+     * @throws PatcherException
      */
     public function serialiseCollection(array $entities, string $keyedBy = self::KEYED_BY_PROPERTY): array
     {
@@ -101,12 +98,13 @@ class Patcher implements PatcherInterface
             $array = [];
             foreach ($entities as $key => $entity) {
                 $transformer = new ObjectToArrayTransformer($this->annotationReader, $this->reflectionReader);
-                $array[$key] = $transformer->transform($entity, $keyedBy);
+                $value = $transformer->transform($entity, $keyedBy);
+                if ($value !== null) {
+                    $array[$key] = $value;
+                }
             }
 
             return $array;
-        } catch (ReflectionException $exception) {
-            throw $exception;
         } catch (\Throwable $throwable) {
             throw new PatcherException(PatcherException::ERROR_INPUT_DATA, 0, $throwable);
         }

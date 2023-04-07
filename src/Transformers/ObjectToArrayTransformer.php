@@ -9,9 +9,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\MappingAttribute;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\OneToOne;
-use Micronative\EntityPatcher\Exception\ReflectionException;
 use Micronative\EntityPatcher\Reflection\ReflectionReader;
-use Micronative\EntityPatcher\Reflection\Reflection;
 use ReflectionProperty;
 
 class ObjectToArrayTransformer
@@ -31,17 +29,18 @@ class ObjectToArrayTransformer
     }
 
     /**
-     * @param object $entity
+     * @param ?object $entity
      * @param string $keyedBy
-     * @return array
-     * @throws ReflectionException
+     * @return array|null
      */
-    public function transform(object $entity, string $keyedBy): array
+    public function transform(?object $entity, string $keyedBy): ?array
     {
-        $this->mappingTree[] = get_class($entity);
-        $reflectionClass = (new Reflection())->reflect($entity);
-        $properties = $reflectionClass->getProperties();
+        if ($entity == null){
+            return null;
+        }
 
+        $this->mappingTree[] = get_class($entity);
+        $properties = $this->reflectionReader->getProperties($entity);
         $array = [];
         foreach ($properties as $property) {
             $annotations = $this->annotationReader->getPropertyAnnotations($property);
@@ -61,21 +60,12 @@ class ObjectToArrayTransformer
     /**
      * @param array|null $entities
      * @param string $keyedBy
-     * @return array
-     * @throws ReflectionException
+     * @return array|null
      */
-    private function transformCollection(?array $entities, string $keyedBy): array
+    private function transformCollection(?array $entities, string $keyedBy): ?array
     {
-        if (empty($entities)) {
-            return [];
-        }
-
-        $array = [];
-        foreach ($entities as $key => $entity) {
-            $array[$key] = $this->transform($entity, $keyedBy);
-        }
-
-        return $array;
+        $transformer = new CollectionToArrayTransformer($this->annotationReader, $this->reflectionReader);
+        return $transformer->transformCollection($entities, $keyedBy);
     }
 
     /**
@@ -84,7 +74,6 @@ class ObjectToArrayTransformer
      * @param MappingAttribute $annotation
      * @param string $keyedBy
      * @return array|mixed|null
-     * @throws ReflectionException
      */
     private function getValue(object $entity, ReflectionProperty $property, MappingAttribute $annotation, string $keyedBy)
     {
