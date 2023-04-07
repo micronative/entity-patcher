@@ -10,7 +10,7 @@
 [ico-codecov]: https://codecov.io/gh/micronative/entity-patcher/branch/master/graph/badge.svg
 
 [link-build]: https://github.com/micronative/entity-patcher/actions
-[link-codecov]: https://codecov.io/gh/micronative/entity-patcher
+[link-codecov]: https://codecov.io/gh/micronative/entity-patcher/tree/main
 
 
 Doctrine Entity Patcher
