@@ -13,7 +13,7 @@
 [link-codecov]: https://codecov.io/gh/micronative/entity-patcher
 
 
-Doctrine Entity Patcher
+Entity Patcher
 
 ## Installation
 composer.json
