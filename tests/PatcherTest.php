@@ -87,6 +87,20 @@ class PatcherTest extends TestCase
         $this->assertEquals($data, $array);
     }
 
+    /**
+     * @dataProvider getValidData
+     * @param array $data
+     * @return void
+     * @throws DataException|ObjectFactoryException|PatcherException
+     */
+    public function testSerialiseCollection(array $data)
+    {
+        $company = $this->patcher->create(Company::class, $data);
+        $array = $this->patcher->serialiseCollection([$company, $company]);
+        $this->assertEquals([$data, $data], $array);
+    }
+
+
     private function assertCompany(Company $company)
     {
         $this->assertInstanceOf(Company::class, $company);
