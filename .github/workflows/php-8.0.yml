@@ -46,7 +46,7 @@ jobs:
           XDEBUG_MODE: cover
         with:
           version: "9.3"
-          php_version: "8.1"
+          php_version: "8.0"
           php_extensions: xdebug
           configuration: phpunit.xml
           bootstrap: vendor/autoload.php
