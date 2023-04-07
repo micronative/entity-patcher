@@ -28,6 +28,9 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     needs: [ composer ]
+    defaults:
+      run:
+        working-directory: ./
     outputs:
       coverage: ${{ steps.store-coverage.outputs.coverage_text }}
 
