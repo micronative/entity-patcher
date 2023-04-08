@@ -14,6 +14,7 @@
 
 
 A Doctrine helper class that provides functionalities to easily create, patch or serialise entities.
+
 Use cases:
 - To create entities from arrays returning from APIs
 - To create entities from arrays returning from pure SQL queries.
