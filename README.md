@@ -13,7 +13,11 @@
 [link-codecov]: https://codecov.io/gh/micronative/entity-patcher
 
 
-Entity Patcher
+A Doctrine helper class that provides functionalities to easily create, patch or serialise entities.
+Use cases:
+- To create entities from arrays returning from APIs
+- To create entities from arrays returning from pure SQL queries.
+- To serialise entities to arrays for transfer or export purposes.
 
 ## Installation
 composer.json
