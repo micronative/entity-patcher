@@ -70,7 +70,11 @@ class ObjectToArrayTransformer
      */
     private function transformCollection(?array $entities, string $keyedBy): ?array
     {
-        $transformer = new CollectionToArrayTransformer($this->annotationReader, $this->reflectionReader, $this->mappingTree);
+        $transformer = new CollectionToArrayTransformer(
+            $this->annotationReader,
+            $this->reflectionReader,
+            $this->mappingTree
+        );
         return $transformer->transform($entities, $keyedBy);
     }
 

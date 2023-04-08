@@ -9,7 +9,6 @@ class CollectionToArrayTransformer
 {
     private AnnotationReader $annotationReader;
     private ReflectionReader $reflectionReader;
-    private string $collectionClassname;
     private array $mappingTree;
 
     /**
@@ -43,7 +42,11 @@ class CollectionToArrayTransformer
         foreach ($entities as $key => $entity) {
             $classname = get_class($entity);
             if (!in_array($classname, $this->mappingTree)) {
-                $transformer = new ObjectToArrayTransformer($this->annotationReader, $this->reflectionReader, $this->mappingTree);
+                $transformer = new ObjectToArrayTransformer(
+                    $this->annotationReader,
+                    $this->reflectionReader,
+                    $this->mappingTree
+                );
                 $array[$key] = $transformer->transform($entity, $keyedBy);
             }
         }
