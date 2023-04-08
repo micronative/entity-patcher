@@ -11,11 +11,6 @@ $company = new Company();
 $company
     ->setId(1)
     ->setName('Micronative');
-$arrayByColumn = $patcher->serialise($company, Patcher::KEYED_BY_COLUMN);
-print_r($arrayByColumn);
-
-$arrayByProperty = $patcher->serialise($company, Patcher::KEYED_BY_PROPERTY);
-print_r($arrayByProperty);
 
 $role1 = new Role();
 $role1
@@ -36,12 +31,6 @@ $user1
 $role1->setUsers([$user1]);
 $user1->setRoles([$role1, $role2]);
 
-$role1Array = $patcher->serialise($role1);
-print_r($role1Array);
-
-$userArray = $patcher->serialise($user1);
-print_r($userArray);
-
 $user2 = new User();
 $user2
     ->setId(3)
@@ -53,7 +42,3 @@ $role2->setUsers([$user2]);
 $company->setUsers([$user1, $user2]);
 $companyArray = $patcher->serialise($company);
 print_r($companyArray);
-
-$rolesArray = $patcher->serialiseCollection([$role1, $role2]);
-print_r($rolesArray);
-
