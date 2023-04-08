@@ -192,7 +192,7 @@ Samples\Entity\Company Object
 ```
 @see: [samples/create.php](samples/create.php)
 
-## Patch
+### Patch
 ```php
 $patcher = new Patcher();
 $company = new Company();
@@ -353,7 +353,7 @@ Samples\Entity\Company Object
 ```
 @see: [samples/patch.php](samples/patch.php)
 
-## Serialise
+### Serialise
 ```php
 $patcher = new Patcher();
 $company = new Company();
@@ -450,7 +450,7 @@ Array
 ```
 @see: [samples/serialise.php](samples/serialise.php)
 
-## Serialise Collection
+### Serialise Collection
 ```php
 $patcher = new Patcher();
 $company = new Company();
