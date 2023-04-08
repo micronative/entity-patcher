@@ -26,7 +26,7 @@ class PatcherTest extends TestCase
      * @dataProvider getValidData
      * @param array $data
      * @return void
-     * @throws DataException|ObjectFactoryException|PatcherException
+     * @throws PatcherException
      */
     public function testCreate(array $data)
     {
@@ -39,11 +39,11 @@ class PatcherTest extends TestCase
      * @dataProvider getInvalidData
      * @param array $data
      * @return void
-     * @throws DataException|ObjectFactoryException|PatcherException
+     * @throws PatcherException
      */
     public function testCreateThrowsException(array $data)
     {
-        $this->expectException(DataException::class);
+        $this->expectException(PatcherException::class);
         $this->expectExceptionMessage('The property "users" is an array. Please check input data.');
         $this->patcher->create(Company::class, $data);
     }
@@ -52,7 +52,7 @@ class PatcherTest extends TestCase
      * @dataProvider getValidData
      * @param array $data
      * @return void
-     * @throws DataException|ObjectFactoryException|PatcherException
+     * @throws PatcherException
      */
     public function testPatch(array $data)
     {
@@ -65,11 +65,11 @@ class PatcherTest extends TestCase
      * @dataProvider getInvalidData
      * @param array $data
      * @return void
-     * @throws DataException|ObjectFactoryException|PatcherException
+     * @throws PatcherException
      */
     public function testPatchThrowsException(array $data)
     {
-        $this->expectException(DataException::class);
+        $this->expectException(PatcherException::class);
         $this->expectExceptionMessage('The property "users" is an array. Please check input data.');
         $company = new Company();
         $this->patcher->patch($company, $data);
@@ -79,7 +79,7 @@ class PatcherTest extends TestCase
      * @dataProvider getValidData
      * @param array $data
      * @return void
-     * @throws DataException|ObjectFactoryException|PatcherException
+     * @throws PatcherException
      */
     public function testSerialise(array $data)
     {
@@ -92,7 +92,7 @@ class PatcherTest extends TestCase
      * @dataProvider getValidData
      * @param array $data
      * @return void
-     * @throws DataException|ObjectFactoryException|PatcherException
+     * @throws PatcherException
      */
     public function testSerialiseCollection(array $data)
     {

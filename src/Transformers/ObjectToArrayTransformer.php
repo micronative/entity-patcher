@@ -21,11 +21,17 @@ class ObjectToArrayTransformer
     /**
      * @param AnnotationReader|null $annotationReader
      * @param ReflectionReader|null $reflectionReader
+     * @param array $mappingTree
      */
-    public function __construct(AnnotationReader $annotationReader = null, ReflectionReader $reflectionReader = null)
+    public function __construct(
+        AnnotationReader $annotationReader = null,
+        ReflectionReader $reflectionReader = null,
+        array            $mappingTree = []
+    )
     {
         $this->annotationReader = $annotationReader ?? new AnnotationReader();
         $this->reflectionReader = $reflectionReader ?? new ReflectionReader();
+        $this->mappingTree = $mappingTree;
     }
 
     /**
@@ -64,7 +70,7 @@ class ObjectToArrayTransformer
      */
     private function transformCollection(?array $entities, string $keyedBy): ?array
     {
-        $transformer = new CollectionToArrayTransformer($this->annotationReader, $this->reflectionReader);
+        $transformer = new CollectionToArrayTransformer($this->annotationReader, $this->reflectionReader, $this->mappingTree);
         return $transformer->transform($entities, $keyedBy);
     }
 

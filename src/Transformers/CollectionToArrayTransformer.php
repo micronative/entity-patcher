@@ -9,15 +9,23 @@ class CollectionToArrayTransformer
 {
     private AnnotationReader $annotationReader;
     private ReflectionReader $reflectionReader;
+    private string $collectionClassname;
+    private array $mappingTree;
 
     /**
      * @param AnnotationReader|null $annotationReader
      * @param ReflectionReader|null $reflectionReader
+     * @param array $mappingTree
      */
-    public function __construct(AnnotationReader $annotationReader = null, ReflectionReader $reflectionReader = null)
+    public function __construct(
+        AnnotationReader $annotationReader = null,
+        ReflectionReader $reflectionReader = null,
+        array            $mappingTree = []
+    )
     {
         $this->annotationReader = $annotationReader ?? new AnnotationReader();
         $this->reflectionReader = $reflectionReader ?? new ReflectionReader();
+        $this->mappingTree = $mappingTree;
     }
 
     /**
@@ -33,8 +41,11 @@ class CollectionToArrayTransformer
 
         $array = [];
         foreach ($entities as $key => $entity) {
-            $transformer = new ObjectToArrayTransformer($this->annotationReader, $this->reflectionReader);
-            $array[$key] = $transformer->transform($entity, $keyedBy);
+            $classname = get_class($entity);
+            if (!in_array($classname, $this->mappingTree)) {
+                $transformer = new ObjectToArrayTransformer($this->annotationReader, $this->reflectionReader, $this->mappingTree);
+                $array[$key] = $transformer->transform($entity, $keyedBy);
+            }
         }
 
         if (empty($array)) {

@@ -41,6 +41,9 @@ $user2
 $role2->setUsers([$user2]);
 $company->setUsers([$user1, $user2]);
 
+$role1Array = $patcher->serialise($role1);
+print_r($role1Array);
+
 $rolesArray = $patcher->serialiseCollection([$role1, $role2]);
 print_r($rolesArray);
 

@@ -8,6 +8,7 @@ use Micronative\EntityPatcher\Exception\ObjectFactoryException;
 use Micronative\EntityPatcher\Exception\PatcherException;
 use Micronative\EntityPatcher\Reflection\ReflectionReader;
 use Micronative\EntityPatcher\Transformers\ArrayToObjectTransformer;
+use Micronative\EntityPatcher\Transformers\CollectionToArrayTransformer;
 use Micronative\EntityPatcher\Transformers\ObjectToArrayTransformer;
 
 class Patcher implements PatcherInterface
@@ -30,17 +31,15 @@ class Patcher implements PatcherInterface
      * @param array $data
      * @param string $keyedBy data keyed by column name or property name
      * @return object
-     * @throws ObjectFactoryException|DataException|PatcherException
+     * @throws PatcherException
      */
     public function create(string $classname, array $data, string $keyedBy = self::KEYED_BY_PROPERTY): object
     {
         try {
             $transformer = new ArrayToObjectTransformer($this->annotationReader, $this->reflectionReader);
             return $transformer->transform($classname, $data, $keyedBy);
-        } catch (ObjectFactoryException|DataException $exception) {
-            throw $exception;
-        } catch (\Throwable $throwable) {
-            throw new PatcherException(PatcherException::ERROR_INPUT_DATA, 0, $throwable);
+        } catch (ObjectFactoryException|DataException|\Throwable $throwable) {
+            throw new PatcherException(PatcherException::ERROR_INPUT_DATA . $throwable->getMessage(), 0, $throwable);
         }
     }
 
@@ -51,17 +50,15 @@ class Patcher implements PatcherInterface
      * @param array $data
      * @param string $keyedBy data keyed by column name or property name
      * @return void
-     * @throws ObjectFactoryException|DataException|PatcherException
+     * @throws PatcherException
      */
     public function patch(object $entity, array $data, string $keyedBy = self::KEYED_BY_PROPERTY): void
     {
         try {
             $transformer = new ArrayToObjectTransformer($this->annotationReader, $this->reflectionReader);
             $transformer->patch($entity, $data, $keyedBy);
-        } catch (ObjectFactoryException|DataException $exception) {
-            throw $exception;
-        } catch (\Throwable $throwable) {
-            throw new PatcherException(PatcherException::ERROR_INPUT_DATA, 0, $throwable);
+        } catch (ObjectFactoryException|DataException|\Throwable $throwable) {
+            throw new PatcherException(PatcherException::ERROR_INPUT_DATA . $throwable->getMessage(), 0, $throwable);
         }
     }
 
@@ -79,7 +76,7 @@ class Patcher implements PatcherInterface
             $transformer = new ObjectToArrayTransformer($this->annotationReader, $this->reflectionReader);
             return $transformer->transform($entity, $keyedBy);
         } catch (\Throwable $throwable) {
-            throw new PatcherException(PatcherException::ERROR_INPUT_DATA, 0, $throwable);
+            throw new PatcherException(PatcherException::ERROR_INPUT_DATA . $throwable->getMessage(), 0, $throwable);
         }
 
     }
@@ -95,19 +92,11 @@ class Patcher implements PatcherInterface
     public function serialiseCollection(array $entities, string $keyedBy = self::KEYED_BY_PROPERTY): array
     {
         try {
-            $array = [];
-            foreach ($entities as $key => $entity) {
-                $transformer = new ObjectToArrayTransformer($this->annotationReader, $this->reflectionReader);
-                $value = $transformer->transform($entity, $keyedBy);
-                if ($value !== null) {
-                    $array[$key] = $value;
-                }
-            }
-
-            return $array;
+            $transformer = new CollectionToArrayTransformer($this->annotationReader, $this->reflectionReader);
+            $array = $transformer->transform($entities, $keyedBy);
+            return $array == null ? [] : $array;
         } catch (\Throwable $throwable) {
-            throw new PatcherException(PatcherException::ERROR_INPUT_DATA, 0, $throwable);
+            throw new PatcherException(PatcherException::ERROR_INPUT_DATA . $throwable->getMessage(), 0, $throwable);
         }
-
     }
 }
