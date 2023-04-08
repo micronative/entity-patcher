@@ -97,8 +97,9 @@ $company = $patcher->create(
 
     ]);
 print_r($company);
-# Output
-
+```
+Output
+```php
 Samples\Entity\Company Object
 (
     [id:Samples\Entity\Company:private] => 1
@@ -257,8 +258,9 @@ $patcher->patch(
 
     ]);
 print_r($company);
-
-# Output
+```
+Output
+```php
 Samples\Entity\Company Object
 (
     [id:Samples\Entity\Company:private] => 1
@@ -389,8 +391,9 @@ $role2->setUsers([$user2]);
 $company->setUsers([$user1, $user2]);
 $companyArray = $patcher->serialise($company);
 print_r($companyArray);
-
-# Output
+```
+Output
+```php
 Array
 (
     [id] => 1
@@ -485,8 +488,9 @@ $role2->setUsers([$user2]);
 
 $rolesArray = $patcher->serialiseCollection([$role1, $role2]);
 print_r($rolesArray);
-
-# Output
+```
+Output
+```php
 Array
 (
     [0] => Array
