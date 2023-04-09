@@ -101,7 +101,8 @@ $company = $patcher->create(
             ]
         ]
 
-    ]);
+    ],
+    Patcher::KEYED_BY_PROPERTY);
 print_r($company);
 ```
 
@@ -331,7 +332,8 @@ $patcher->patch(
             ]
         ]
 
-    ]);
+    ],
+    Patcher::KEYED_BY_PROPERTY);
 print_r($company);
 ```
 Patch entity with data KEYED_BY_COLUMN
@@ -396,7 +398,9 @@ $patcher->patch(
             ]
         ]
 
-    ]);
+    ],
+    Patcher::KEYED_BY_COLUMN);
+    
 print_r($company);
 ```
 

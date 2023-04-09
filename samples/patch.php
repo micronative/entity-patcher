@@ -6,8 +6,72 @@ use Samples\Entity\Company;
 
 $patcher = new Patcher();
 $company = new Company();
-
 # patch entity with data KEYED_BY_PROPERTY
+$patcher->patch(
+    $company,
+    [
+        'company_id' => 1,
+        'companny_name' => 'Micronative',
+        'users' => [
+            [
+                'id' => '100',
+                'firstName' => 'Ken',
+                'lastName' => 'Ngo',
+                'email' => 'ken.ngo@micronative.com',
+                'roles' => [
+                    [
+                        'id' => '1000',
+                        'type' => 'Admin'
+                    ],
+                    [
+                        'id' => '1100',
+                        'type' => 'Manager'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'id' => '10000',
+                        'description' => 'Admin Profile'
+                    ],
+                    [
+                        'id' => '10001',
+                        'description' => 'Manager Profile'
+                    ],
+                ]
+            ],
+            [
+                'id' => '200',
+                'firstName' => 'May',
+                'lastName' => 'Ngo',
+                'email' => 'may.ngo@micronative.com',
+                'roles' => [
+                    [
+                        'id' => '1100',
+                        'type' => 'Student'
+                    ],
+                    [
+                        'id' => '1200',
+                        'type' => 'Daughter'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'id' => '10003',
+                        'description' => 'Student Profile'
+                    ],
+                    [
+                        'id' => '10004',
+                        'description' => 'Daughter Profile'
+                    ],
+                ]
+            ]
+        ]
+
+    ],
+    Patcher::KEYED_BY_PROPERTY);
+print_r($company);
+
+# patch entity with data KEYED_BY_COLUMN
 $patcher->patch(
     $company,
     [
@@ -70,69 +134,5 @@ $patcher->patch(
 
     ],
     Patcher::KEYED_BY_COLUMN);
-print_r($company);
-
-# patch entity with data KEYED_BY_COLUMN
-$patcher->patch(
-    $company,
-    [
-        'company_id' => 1,
-        'companny_name' => 'Micronative',
-        'users' => [
-            [
-                'id' => '100',
-                'firstName' => 'Ken',
-                'lastName' => 'Ngo',
-                'email' => 'ken.ngo@micronative.com',
-                'roles' => [
-                    [
-                        'id' => '1000',
-                        'type' => 'Admin'
-                    ],
-                    [
-                        'id' => '1100',
-                        'type' => 'Manager'
-                    ],
-                ],
-                'profiles' => [
-                    [
-                        'id' => '10000',
-                        'description' => 'Admin Profile'
-                    ],
-                    [
-                        'id' => '10001',
-                        'description' => 'Manager Profile'
-                    ],
-                ]
-            ],
-            [
-                'id' => '200',
-                'firstName' => 'May',
-                'lastName' => 'Ngo',
-                'email' => 'may.ngo@micronative.com',
-                'roles' => [
-                    [
-                        'id' => '1100',
-                        'type' => 'Student'
-                    ],
-                    [
-                        'id' => '1200',
-                        'type' => 'Daughter'
-                    ],
-                ],
-                'profiles' => [
-                    [
-                        'id' => '10003',
-                        'description' => 'Student Profile'
-                    ],
-                    [
-                        'id' => '10004',
-                        'description' => 'Daughter Profile'
-                    ],
-                ]
-            ]
-        ]
-
-    ]);
 print_r($company);
 
