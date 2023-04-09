@@ -6,11 +6,78 @@ use Samples\Entity\Company;
 
 $patcher = new Patcher();
 $company = new Company();
+
+# patch entity with data KEYED_BY_PROPERTY
 $patcher->patch(
     $company,
     [
-        'id' => 1,
-        'name' => 'Micronative',
+        'company_id' => 1,
+        'company_name' => 'Micronative',
+        'users' => [
+            [
+                'user_id' => '100',
+                'user_firstName' => 'Ken',
+                'user_lastName' => 'Ngo',
+                'user_email' => 'ken.ngo@micronative.com',
+                'roles' => [
+                    [
+                        'role_id' => '1000',
+                        'role_type' => 'Admin'
+                    ],
+                    [
+                        'role_id' => '1100',
+                        'role_type' => 'Manager'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'profile_id' => '10000',
+                        'profile_description' => 'Admin Profile'
+                    ],
+                    [
+                        'profile_id' => '10001',
+                        'profile_description' => 'Manager Profile'
+                    ],
+                ]
+            ],
+            [
+                'user_id' => '200',
+                'user_firstName' => 'May',
+                'user_lastName' => 'Ngo',
+                'user_email' => 'may.ngo@micronative.com',
+                'roles' => [
+                    [
+                        'role_id' => '1100',
+                        'role_type' => 'Student'
+                    ],
+                    [
+                        'role_id' => '1200',
+                        'role_type' => 'Daughter'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'profile_id' => '10003',
+                        'profile_description' => 'Student Profile'
+                    ],
+                    [
+                        'profile_id' => '10004',
+                        'profile_description' => 'Daughter Profile'
+                    ],
+                ]
+            ]
+        ]
+
+    ],
+    Patcher::KEYED_BY_COLUMN);
+print_r($company);
+
+# patch entity with data KEYED_BY_COLUMN
+$patcher->patch(
+    $company,
+    [
+        'company_id' => 1,
+        'companny_name' => 'Micronative',
         'users' => [
             [
                 'id' => '100',

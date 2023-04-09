@@ -40,6 +40,10 @@ $user2
     ->setCompany($company);
 $role2->setUsers([$user2]);
 
-$rolesArray = $patcher->serialiseCollection([$role1, $role2]);
+# serialise to array KEYED_BY_PROPERTY
+$rolesArray = $patcher->serialiseCollection([$role1, $role2], Patcher::KEYED_BY_PROPERTY);
 print_r($rolesArray);
 
+# serialise to array KEYED_BY_COLUMN
+$rolesArray = $patcher->serialiseCollection([$role1, $role2], Patcher::KEYED_BY_COLUMN);
+print_r($rolesArray);

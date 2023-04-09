@@ -40,5 +40,11 @@ $user2
     ->setCompany($company);
 $role2->setUsers([$user2]);
 $company->setUsers([$user1, $user2]);
-$companyArray = $patcher->serialise($company);
+
+# serialise to array KEYED_BY_PROPERTY
+$companyArray = $patcher->serialise($company, Patcher::KEYED_BY_PROPERTY);
+print_r($companyArray);
+
+# serialise to array KEYED_BY_COLUMN
+$companyArray = $patcher->serialise($company, Patcher::KEYED_BY_COLUMN);
 print_r($companyArray);
