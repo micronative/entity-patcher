@@ -38,6 +38,7 @@ composer require micronative/entity-patcher:1.0.0
 
 ## Samples
 ### Create
+Create entity with data KEYED_BY_PROPERTY
 ```php
 $patcher = new Patcher();
 $company = $patcher->create(
@@ -103,7 +104,75 @@ $company = $patcher->create(
     ]);
 print_r($company);
 ```
-Output
+
+Create entity with data KEYED_BY_COLUMN
+```php
+$company = $patcher->create(
+    Company::class,
+    [
+        'company_id' => 1,
+        'company_name' => 'Micronative',
+        'users' => [
+            [
+                'user_id' => '100',
+                'user_firstName' => 'Ken',
+                'user_lastName' => 'Ngo',
+                'user_email' => 'ken.ngo@micronative.com',
+                'roles' => [
+                    [
+                        'role_id' => '1000',
+                        'role_type' => 'Admin'
+                    ],
+                    [
+                        'role_id' => '1100',
+                        'role_type' => 'Manager'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'profile_id' => '10000',
+                        'profile_description' => 'Admin Profile'
+                    ],
+                    [
+                        'profile_id' => '10001',
+                        'profile_description' => 'Manager Profile'
+                    ],
+                ]
+            ],
+            [
+                'user_id' => '200',
+                'user_firstName' => 'May',
+                'user_lastName' => 'Ngo',
+                'user_email' => 'may.ngo@micronative.com',
+                'roles' => [
+                    [
+                        'role_id' => '1100',
+                        'role_type' => 'Student'
+                    ],
+                    [
+                        'role_id' => '1200',
+                        'role_type' => 'Daughter'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'profile_id' => '10003',
+                        'profile_description' => 'Student Profile'
+                    ],
+                    [
+                        'profile_id' => '10004',
+                        'profile_description' => 'Daughter Profile'
+                    ],
+                ]
+            ]
+        ]
+
+    ],
+    Patcher::KEYED_BY_COLUMN);
+print_r($company);
+```
+
+Two print_r($company) above will output the same result
 ```php
 Samples\Entity\Company Object
 (
@@ -198,6 +267,7 @@ Samples\Entity\Company Object
 @see: [samples/create.php](samples/create.php)
 
 ### Patch
+Patch entity with data KEYED_BY_PROPERTY
 ```php
 $patcher = new Patcher();
 $company = new Company();
@@ -264,7 +334,73 @@ $patcher->patch(
     ]);
 print_r($company);
 ```
-Output
+Patch entity with data KEYED_BY_COLUMN
+```php
+$patcher->patch(
+    $company,
+    [
+        'company_id' => 1,
+        'companny_name' => 'Micronative',
+        'users' => [
+            [
+                'id' => '100',
+                'firstName' => 'Ken',
+                'lastName' => 'Ngo',
+                'email' => 'ken.ngo@micronative.com',
+                'roles' => [
+                    [
+                        'id' => '1000',
+                        'type' => 'Admin'
+                    ],
+                    [
+                        'id' => '1100',
+                        'type' => 'Manager'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'id' => '10000',
+                        'description' => 'Admin Profile'
+                    ],
+                    [
+                        'id' => '10001',
+                        'description' => 'Manager Profile'
+                    ],
+                ]
+            ],
+            [
+                'id' => '200',
+                'firstName' => 'May',
+                'lastName' => 'Ngo',
+                'email' => 'may.ngo@micronative.com',
+                'roles' => [
+                    [
+                        'id' => '1100',
+                        'type' => 'Student'
+                    ],
+                    [
+                        'id' => '1200',
+                        'type' => 'Daughter'
+                    ],
+                ],
+                'profiles' => [
+                    [
+                        'id' => '10003',
+                        'description' => 'Student Profile'
+                    ],
+                    [
+                        'id' => '10004',
+                        'description' => 'Daughter Profile'
+                    ],
+                ]
+            ]
+        ]
+
+    ]);
+print_r($company);
+```
+
+Two print_r($company) above will output the same result
 ```php
 Samples\Entity\Company Object
 (
@@ -394,10 +530,16 @@ $user2
     ->setCompany($company);
 $role2->setUsers([$user2]);
 $company->setUsers([$user1, $user2]);
-$companyArray = $patcher->serialise($company);
+
+# serialise to array KEYED_BY_PROPERTY
+$companyArray = $patcher->serialise($company, Patcher::KEYED_BY_PROPERTY);
+print_r($companyArray);
+
+# serialise to array KEYED_BY_COLUMN
+$companyArray = $patcher->serialise($company, Patcher::KEYED_BY_COLUMN);
 print_r($companyArray);
 ```
-Output
+Two print_r($company) above will output the same result
 ```php
 Array
 (
@@ -491,10 +633,15 @@ $user2
     ->setCompany($company);
 $role2->setUsers([$user2]);
 
-$rolesArray = $patcher->serialiseCollection([$role1, $role2]);
+# serialise to array KEYED_BY_PROPERTY
+$rolesArray = $patcher->serialiseCollection([$role1, $role2], Patcher::KEYED_BY_PROPERTY);
+print_r($rolesArray);
+
+# serialise to array KEYED_BY_COLUMN
+$rolesArray = $patcher->serialiseCollection([$role1, $role2], Patcher::KEYED_BY_COLUMN);
 print_r($rolesArray);
 ```
-Output
+Two print_r($company) above will output the same result
 ```php
 Array
 (
