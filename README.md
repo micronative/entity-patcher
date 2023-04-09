@@ -38,7 +38,7 @@ composer require micronative/entity-patcher:1.0.0
 
 ## Samples
 ### Create
-Create entity with data KEYED_BY_PROPERTY
+- Create entity with data KEYED_BY_PROPERTY
 ```php
 $patcher = new Patcher();
 $company = $patcher->create(
@@ -105,8 +105,7 @@ $company = $patcher->create(
     Patcher::KEYED_BY_PROPERTY);
 print_r($company);
 ```
-
-Create entity with data KEYED_BY_COLUMN
+- Create entity with data KEYED_BY_COLUMN
 ```php
 $company = $patcher->create(
     Company::class,
@@ -172,7 +171,6 @@ $company = $patcher->create(
     Patcher::KEYED_BY_COLUMN);
 print_r($company);
 ```
-
 Two print_r($company) above will output the same result
 ```php
 Samples\Entity\Company Object
@@ -268,7 +266,7 @@ Samples\Entity\Company Object
 @see: [samples/create.php](samples/create.php)
 
 ### Patch
-Patch entity with data KEYED_BY_PROPERTY
+- Patch entity with data KEYED_BY_PROPERTY
 ```php
 $patcher = new Patcher();
 $company = new Company();
@@ -336,7 +334,7 @@ $patcher->patch(
     Patcher::KEYED_BY_PROPERTY);
 print_r($company);
 ```
-Patch entity with data KEYED_BY_COLUMN
+- Patch entity with data KEYED_BY_COLUMN
 ```php
 $patcher->patch(
     $company,
@@ -403,7 +401,6 @@ $patcher->patch(
     
 print_r($company);
 ```
-
 Two print_r($company) above will output the same result
 ```php
 Samples\Entity\Company Object
