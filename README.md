@@ -543,7 +543,7 @@ print_r($companyArray);
 $companyArray = $patcher->serialise($company, Patcher::KEYED_BY_COLUMN);
 print_r($companyArray);
 ```
-Two print_r($company) above will output the same result
+The first print_r($company) above will output an array keyed by property name
 ```php
 Array
 (
@@ -599,6 +599,63 @@ Array
 
 )
 ```
+The second print_r($company) above will output an array keyed by column name
+```php
+Array
+(
+    [company_id] => 1
+    [company_name] => Micronative
+    [users] => Array
+        (
+            [0] => Array
+                (
+                    [user_id] => 2
+                    [user_first_name] => Ken
+                    [user_last_name] => Ngo
+                    [user_email] => ken.ngo@micronative.com
+                    [company] => Array
+                        (
+                            [company_id] => 1
+                            [company_name] => Micronative
+                        )
+
+                    [roles] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [role_id] => 1
+                                    [role_type] => Admin
+                                )
+
+                            [1] => Array
+                                (
+                                    [role_id] => 21
+                                    [role_type] => Manager
+                                )
+
+                        )
+
+                )
+
+            [1] => Array
+                (
+                    [user_id] => 3
+                    [user_first_name] => May
+                    [user_last_name] => Ngo
+                    [user_email] => May.ngo@micronative.com
+                    [company] => Array
+                        (
+                            [company_id] => 1
+                            [company_name] => Micronative
+                        )
+
+                )
+
+        )
+
+)
+```
+
 @see: [samples/serialise.php](samples/serialise.php)
 
 ### Serialise Collection
@@ -645,7 +702,7 @@ print_r($rolesArray);
 $rolesArray = $patcher->serialiseCollection([$role1, $role2], Patcher::KEYED_BY_COLUMN);
 print_r($rolesArray);
 ```
-Two print_r($company) above will output the same result
+The first print_r($rolesArray) above will output an array keyed by property name
 ```php
 Array
 (
@@ -698,5 +755,60 @@ Array
         )
 
 )
+```
+The second print_r($rolesArray) will out an array keyed by column name
+```php
+Array
+(
+    [0] => Array
+        (
+            [role_id] => 1
+            [role_type] => Admin
+            [users] => Array
+                (
+                    [0] => Array
+                        (
+                            [user_id] => 2
+                            [user_first_name] => Ken
+                            [user_last_name] => Ngo
+                            [user_email] => ken.ngo@micronative.com
+                            [company] => Array
+                                (
+                                    [company_id] => 1
+                                    [company_name] => Micronative
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [1] => Array
+        (
+            [role_id] => 21
+            [role_type] => Manager
+            [users] => Array
+                (
+                    [0] => Array
+                        (
+                            [user_id] => 3
+                            [user_first_name] => May
+                            [user_last_name] => Ngo
+                            [user_email] => May.ngo@micronative.com
+                            [company] => Array
+                                (
+                                    [company_id] => 1
+                                    [company_name] => Micronative
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
 ```
 @see: [samples/serialise_collection.php](samples/serialise_collection.php)
